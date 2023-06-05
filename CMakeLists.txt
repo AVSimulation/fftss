@@ -125,6 +125,12 @@ install(TARGETS fftss
 
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/fftssConfig.cmake DESTINATION "share/fftss")
 
+INSTALL (
+    FILES ${HEADERS}
+    DESTINATION include/fftss
+    CONFIGURATIONS Release
+)
+
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file(${CMAKE_BINARY_DIR}/cmake/fftssConfigVersion.cmake
     VERSION ${PROJECT_VERSION}
