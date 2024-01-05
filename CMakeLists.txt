@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.21)
 
 project(fftss VERSION 3.0)
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 SET(HEADERS include/fftss.h
             include/fftw3compat.h)
