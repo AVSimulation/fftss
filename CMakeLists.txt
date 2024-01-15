@@ -13,7 +13,7 @@ SET(HEADERS_NO_INSTALL  include/libfftss.h
                         )
 
 option(USE_SSE2 "Use of SSE2 accelerated" ON)
-option(USE_SSE3 "Use of SSE3 accelerated" ON)
+option(USE_SSE3 "Use of SSE3 accelerated" OFF)
 
 
 if(USE_SSE2)
