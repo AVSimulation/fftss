@@ -38,7 +38,7 @@ if(USE_SSE3)
             libfftss/r4_sse3_u1.c
             libfftss/r4_sse3_u4.c
 	)
-endif(USE_SSE2)
+endif(USE_SSE3)
 
 
 SET(SOURCES libfftss/fftss.c
