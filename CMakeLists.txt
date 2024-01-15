@@ -12,6 +12,35 @@ SET(HEADERS_NO_INSTALL  include/libfftss.h
                         # include/fftss.f
                         )
 
+option(USE_SSE2 "Use of SSE2 accelerated" ON)
+option(USE_SSE3 "Use of SSE3 accelerated" ON)
+
+
+if(USE_SSE2)
+	SET(SSE2_SOURCES 
+            libfftss/r4_sse2_1_n.c
+            libfftss/r4_sse2_o.c
+            libfftss/r4_sse2_u1.c
+            libfftss/r4_sse2_u4.c
+            libfftss/r8_sse2_n.c
+            libfftss/r8_sse2_o.c
+            libfftss/r8_sse2_u1.c
+	)
+endif(USE_SSE2)
+
+if(USE_SSE3)
+	SET(SSE3_SOURCES 
+            libfftss/r4_sse3_h_n.c
+            libfftss/r4_sse3_h_o.c
+            libfftss/r4_sse3_h_u1.c
+            libfftss/r4_sse3_n.c
+            libfftss/r4_sse3_o.c
+            libfftss/r4_sse3_u1.c
+            libfftss/r4_sse3_u4.c
+	)
+endif(USE_SSE2)
+
+
 SET(SOURCES libfftss/fftss.c
             libfftss/fftss_2d.c
             libfftss/fftss_3d.c
@@ -45,17 +74,6 @@ SET(SOURCES libfftss/fftss.c
             # libfftss/r4_ia64_o.c
             libfftss/r4_n.c
             libfftss/r4_o.c
-            libfftss/r4_sse2_1_n.c
-            libfftss/r4_sse2_o.c
-            libfftss/r4_sse2_u1.c
-            libfftss/r4_sse2_u4.c
-            libfftss/r4_sse3_h_n.c
-            libfftss/r4_sse3_h_o.c
-            libfftss/r4_sse3_h_u1.c
-            libfftss/r4_sse3_n.c
-            libfftss/r4_sse3_o.c
-            libfftss/r4_sse3_u1.c
-            libfftss/r4_sse3_u4.c
             libfftss/r4_u1.c
             libfftss/r4_u4.c
             # libfftss/r8_bgl_n.c
@@ -67,9 +85,6 @@ SET(SOURCES libfftss/fftss.c
             # libfftss/r8_ia64_n.c
             libfftss/r8_n.c
             libfftss/r8_o.c
-            libfftss/r8_sse2_n.c
-            libfftss/r8_sse2_o.c
-            libfftss/r8_sse2_u1.c
             libfftss/r8_u1.c)
 
 # SET(BASIC_KERNELS   libfftss/r4_n.c
@@ -112,9 +127,19 @@ SET(SOURCES libfftss/fftss.c
 add_library(fftss
             ${HEADERS}
             ${SOURCES}
+	    ${SSE2_SOURCES}
+	    ${SSE3_SOURCES}
             # ${BASIC_KERNELS}
             # ${BASE}
             )
+
+if(USE_SSE2)
+  target_compile_definitions(fftss PRIVATE USE_SSE2)
+endif(USE_SSE2)
+
+if(USE_SSE3)
+  target_compile_definitions(fftss PRIVATE USE_SSE3)
+endif(USE_SSE3)
 
 target_include_directories(fftss PRIVATE include)
 
